@@ -21,7 +21,7 @@ public class CameraCalibrator {
     private static final String TAG = "OCV::CameraCalibrator";
 
     private final Size mPatternSize = new Size(4, 11);
-    private final int mCornersSize = (int)(mPatternSize.width * mPatternSize.height);
+    private final int mCornersSize = (int) (mPatternSize.width * mPatternSize.height);
     private boolean mPatternWasFound = false;
     private MatOfPoint2f mCorners = new MatOfPoint2f();
     private List<Mat> mCornersBuffer = new ArrayList<>();
@@ -37,10 +37,10 @@ public class CameraCalibrator {
     public CameraCalibrator(int width, int height) {
         mImageSize = new Size(width, height);
         mFlags = Calib3d.CALIB_FIX_PRINCIPAL_POINT +
-                 Calib3d.CALIB_ZERO_TANGENT_DIST +
-                 Calib3d.CALIB_FIX_ASPECT_RATIO +
-                 Calib3d.CALIB_FIX_K4 +
-                 Calib3d.CALIB_FIX_K5;
+                Calib3d.CALIB_ZERO_TANGENT_DIST +
+                Calib3d.CALIB_FIX_ASPECT_RATIO +
+                Calib3d.CALIB_FIX_K4 +
+                Calib3d.CALIB_FIX_K5;
         Mat.eye(3, 3, CvType.CV_64FC1).copyTo(mCameraMatrix);
         mCameraMatrix.put(0, 0, 1.0);
         Mat.zeros(5, 1, CvType.CV_64FC1).copyTo(mDistortionCoefficients);
@@ -97,7 +97,7 @@ public class CameraCalibrator {
     }
 
     private double computeReprojectionErrors(List<Mat> objectPoints,
-            List<Mat> rvecs, List<Mat> tvecs, Mat perViewErrors) {
+                                             List<Mat> rvecs, List<Mat> tvecs, Mat perViewErrors) {
         MatOfPoint2f cornersProjected = new MatOfPoint2f();
         double totalError = 0;
         double error;
@@ -113,7 +113,7 @@ public class CameraCalibrator {
 
             int n = objectPoints.get(i).rows();
             viewErrors[i] = (float) Math.sqrt(error * error / n);
-            totalError  += error * error;
+            totalError += error * error;
             totalPoints += n;
         }
         perViewErrors.create(objectPoints.size(), 1, CvType.CV_32FC1);

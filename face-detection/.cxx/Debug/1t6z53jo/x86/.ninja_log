@@ -1,2 +1,5 @@
 # ninja log v5
 0	35	0	clean	d6bb217fcbaeea23
+0	32	0	clean	d6bb217fcbaeea23
+0	2010	6989285279651893	CMakeFiles/detection_based_tracker.dir/DetectionBasedTracker_jni.cpp.o	7a6c828524a32934
+2078	3767	6989285298152653	G:/GitHub/opencv_samples/face-detection/build/intermediates/cxx/Debug/1t6z53jo/obj/x86/libdetection_based_tracker.so	46731145b17647a6

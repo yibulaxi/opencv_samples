@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <receiver
+            android:name="com.yc.video.old.other.BatterReceiver"
+            android:exported="true" />
+        <receiver
+            android:name="com.yc.video.old.other.NetChangedReceiver"
+            android:exported="true" />
+    </application>
+</manifest>

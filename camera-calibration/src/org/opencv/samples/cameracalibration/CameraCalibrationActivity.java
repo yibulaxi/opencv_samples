@@ -13,15 +13,6 @@
 
 package org.opencv.samples.cameracalibration;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraActivity;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
@@ -36,6 +27,15 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraActivity;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 
 import java.util.Collections;
 import java.util.List;
@@ -125,7 +125,7 @@ public class CameraCalibrationActivity extends CameraActivity implements CvCamer
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        
+
         menu.findItem(R.id.preview_mode).setEnabled(true);
         if (mCalibrator != null && !mCalibrator.isCalibrated()) {
             menu.findItem(R.id.preview_mode).setEnabled(false);

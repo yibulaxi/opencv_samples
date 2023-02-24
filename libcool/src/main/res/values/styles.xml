@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="TabLayoutTextStyleNormal">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <style name="TabLayoutTextStyleBold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <!-- 去除滚动视图边界阴影和拉到极致时出现的阴影 -->
+    <style name="scroll_exorcise_shadow">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
+</resources>

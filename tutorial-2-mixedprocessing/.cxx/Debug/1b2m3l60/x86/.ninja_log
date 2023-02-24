@@ -1,2 +1,5 @@
 # ninja log v5
 0	33	0	clean	d6bb217fcbaeea23
+0	33	0	clean	d6bb217fcbaeea23
+1	1499	6989285801490863	CMakeFiles/mixed_sample.dir/jni_part.cpp.o	56d04307ad3d02f9
+1501	1709	6989285803276307	G:/GitHub/opencv_samples/tutorial-2-mixedprocessing/build/intermediates/cxx/Debug/1b2m3l60/obj/x86/libmixed_sample.so	d92a2ee4582292fe

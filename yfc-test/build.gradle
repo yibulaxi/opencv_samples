@@ -1,0 +1,87 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "org.jetbrains.kotlin.kapt"
+}
+
+android {
+    namespace 'com.cool.testopencv'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.cool.testopencv"
+        minSdk 24
+        targetSdk 33
+        versionCode 100
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        multiDexEnabled true
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg("AROUTER_MODULE_NAME", project.name)
+            }
+        }
+    }
+
+    signingConfigs {
+        config {
+            storeFile file("libcool.jks")
+            storePassword "libcool"
+            keyAlias "libcool"
+            keyPassword "libcool"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+            multiDexEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+
+        release {
+            signingConfig signingConfigs.config
+            multiDexEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    buildFeatures {
+        viewBinding true // 使用声明性格式将布局中的界面组件绑定到应用中的数据源。
+        dataBinding = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+    implementation project(':opencv')
+    implementation project(':libcool')
+//    implementation "io.github.yfcyfc123234:lib-cool:1.0.2"
+
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+
+    kapt "com.github.bumptech.glide:compiler:4.13.0"
+    kapt "androidx.room:room-compiler:2.5.0"
+    kapt "me.laoyuyu.aria:compiler:3.8.16"
+    kapt "com.alibaba:arouter-compiler:1.5.2"
+
+
+}
