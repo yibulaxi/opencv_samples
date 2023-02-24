@@ -1,0 +1,21 @@
+                        -HG:\GitHub\OpenCV\samples\face-detection\jni
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=x86
+-DCMAKE_ANDROID_ARCH_ABI=x86
+-DANDROID_NDK=F:\Android\sdk\ndk\23.1.7779620
+-DCMAKE_ANDROID_NDK=F:\Android\sdk\ndk\23.1.7779620
+-DCMAKE_TOOLCHAIN_FILE=F:\Android\sdk\ndk\23.1.7779620\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=F:\Android\sdk\cmake\3.22.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=G:\GitHub\OpenCV\samples\face-detection\build\intermediates\cxx\Debug\5r1d5s1g\obj\x86
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=G:\GitHub\OpenCV\samples\face-detection\build\intermediates\cxx\Debug\5r1d5s1g\obj\x86
+-DCMAKE_BUILD_TYPE=Debug
+-BG:\GitHub\OpenCV\samples\face-detection\.cxx\Debug\5r1d5s1g\x86
+-GNinja
+-DOpenCV_DIR=G:\GitHub\OpenCV\sdk/native/jni
+-DANDROID_TOOLCHAIN=clang
+-DANDROID_STL=c++_shared
+                        Build command args: []
+                        Version: 2

@@ -1,0 +1,3 @@
+G:/GitHub/OpenCV/samples/tutorial-2-mixedprocessing/.cxx/Debug/1i3vz1z6/x86/CMakeFiles/mixed_sample.dir
+G:/GitHub/OpenCV/samples/tutorial-2-mixedprocessing/.cxx/Debug/1i3vz1z6/x86/CMakeFiles/edit_cache.dir
+G:/GitHub/OpenCV/samples/tutorial-2-mixedprocessing/.cxx/Debug/1i3vz1z6/x86/CMakeFiles/rebuild_cache.dir

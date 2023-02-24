@@ -1,0 +1,3 @@
+G:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86/CMakeFiles/detection_based_tracker.dir
+G:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86/CMakeFiles/edit_cache.dir
+G:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86/CMakeFiles/rebuild_cache.dir
