@@ -33,6 +33,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private static final int VIEW_MODE_GRAY = 1;
     private static final int VIEW_MODE_CANNY = 2;
     private static final int VIEW_MODE_FEATURES = 5;
+    private static final int VIEW_MODE_HOUGH_CIRCLES = 10;
 
     private int mViewMode;
     private Mat mRgba;
@@ -44,6 +45,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private MenuItem mItemPreviewCanny;
     private MenuItem mItemPreviewFeaturesNative;
     private MenuItem mItemPreviewFeaturesJava;
+    private MenuItem mItemPreviewHoughCircles;
 
     private boolean isNativeFeatures = true;
 
@@ -92,6 +94,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         mItemPreviewCanny = menu.add("Canny");
         mItemPreviewFeaturesNative = menu.add("Find Features Native");
         mItemPreviewFeaturesJava = menu.add("Find Features Java");
+        mItemPreviewHoughCircles = menu.add("Hough Circles");
         return true;
     }
 
@@ -133,8 +136,8 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     @Override
     public void onCameraViewStarted(int width, int height) {
         mRgba = new Mat(height, width, CvType.CV_8UC4);
-        mIntermediateMat = new Mat(height, width, CvType.CV_8UC4);
         mGray = new Mat(height, width, CvType.CV_8UC1);
+        mIntermediateMat = new Mat(height, width, CvType.CV_8UC4);
     }
 
     @Override
@@ -180,6 +183,36 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
                     }
                 }
                 break;
+            case VIEW_MODE_HOUGH_CIRCLES:
+                mRgba = inputFrame.rgba();
+                mGray = inputFrame.gray();
+
+                Mat circles = new Mat();
+//                Imgproc.blur(mGray, mGray, new Size(7, 7), new Point(2, 2));
+                Imgproc.HoughCircles(mGray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 8, 90, 30, 1, 25);
+
+                int cols = circles.cols();
+                if (cols > 0) {
+                    for (int x = 0; x < cols; x++) {
+                        double[] circleVec = circles.get(0, x);
+                        if (circleVec != null && circleVec.length >= 3) {
+                            Point center = new Point((int) circleVec[0], (int) circleVec[1]);
+                            int radius = (int) circleVec[2];
+                            Imgproc.circle(mRgba, center, 3, new Scalar(255, 255, 255), 5);
+                            Imgproc.circle(mRgba, center, radius, new Scalar(255, 255, 255), 2);
+                        }
+                    }
+
+                    Imgproc.putText(mRgba,
+                            cols + "circle",
+                            new Point(20, 20),
+                            Imgproc.FONT_HERSHEY_SIMPLEX,
+                            1.0,
+                            new Scalar(0, 255, 0),
+                            3);
+                }
+                circles.release();
+                break;
         }
 
         return this.mRgba;
@@ -200,6 +233,8 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         } else if (item == mItemPreviewFeaturesJava) {
             mViewMode = VIEW_MODE_FEATURES;
             isNativeFeatures = false;
+        } else if (item == mItemPreviewHoughCircles) {
+            mViewMode = VIEW_MODE_HOUGH_CIRCLES;
         }
 
         return true;
