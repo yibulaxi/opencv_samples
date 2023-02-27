@@ -11,9 +11,9 @@ import org.opencv.android.CameraActivity;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
@@ -39,7 +39,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private MenuItem mItemPreviewCanny;
     private MenuItem mItemPreviewFeatures;
 
-    private CameraBridgeViewBase mOpenCvCameraView;
+    private JavaCameraView javaCameraView;
 
     private final BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -49,8 +49,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
                 // Load native library after(!) OpenCV initialization
                 System.loadLibrary("mixed_sample");
-
-                mOpenCvCameraView.enableView();
+                javaCameraView.enableView();
             } else {
                 super.onManagerConnected(status);
             }
@@ -72,9 +71,9 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
         setContentView(R.layout.tutorial2_surface_view);
 
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial2_activity_surface_view);
-        mOpenCvCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
-        mOpenCvCameraView.setCvCameraViewListener(this);
+        javaCameraView = findViewById(R.id.tutorial2_activity_surface_view);
+        javaCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
+        javaCameraView.setCvCameraViewListener(this);
     }
 
     @Override
@@ -89,8 +88,8 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
     @Override
     public void onPause() {
-        if (mOpenCvCameraView != null) {
-            mOpenCvCameraView.disableView();
+        if (javaCameraView != null) {
+            javaCameraView.disableView();
         }
 
         super.onPause();
@@ -111,12 +110,12 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
     @Override
     protected List<? extends CameraBridgeViewBase> getCameraViewList() {
-        return Collections.singletonList(mOpenCvCameraView);
+        return Collections.singletonList(javaCameraView);
     }
 
     public void onDestroy() {
-        if (mOpenCvCameraView != null) {
-            mOpenCvCameraView.disableView();
+        if (javaCameraView != null) {
+            javaCameraView.disableView();
         }
 
         super.onDestroy();
@@ -138,17 +137,6 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
     @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-//        rgb = inputFrame.rgba();        // 旋转输入帧
-//        if (isFrontCamera) {
-//            Core.rotate(rgb, rgb, Core.ROTATE_90_COUNTERCLOCKWISE);
-//            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
-//            Core.flip(rgb, rgb, 1);
-//            Core.flip(gray, gray, 1);
-//        } else {
-//            Core.rotate(rgb, rgb, Core.ROTATE_90_CLOCKWISE);
-//            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
-//        }
-
         final int viewMode = mViewMode;
         switch (viewMode) {
             case VIEW_MODE_GRAY:
@@ -173,7 +161,19 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
                 break;
         }
 
-        return mRgba;
+//        Mat gray = inputFrame.gray();
+//        boolean isFrontCamera = false;
+//        if (isFrontCamera) {
+//            Core.rotate(mRgba, mRgba, Core.ROTATE_90_COUNTERCLOCKWISE);
+//            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
+//            Core.flip(mRgba, mRgba, 1);
+//            Core.flip(gray, gray, 1);
+//        } else {
+//            Core.rotate(mRgba, mRgba, Core.ROTATE_90_CLOCKWISE);
+//            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
+//        }
+
+        return this.mRgba;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

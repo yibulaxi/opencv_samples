@@ -11,7 +11,7 @@
             android:name="Tutorial2Activity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
