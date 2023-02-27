@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Opencv_samples.NoActionBar">
+    <style name="Theme.Opencv_samples.NoActionBar" parent="Theme.Opencv_samples">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
