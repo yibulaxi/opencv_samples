@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "G:\\GitHub\\opencv_samples\\sdk\\libcxx_helper\\CMakeLists.txt"
+    "D:\\GitHub\\opencv_samples\\sdk\\libcxx_helper\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "G:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86",
+      "D:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "G:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86",
+    "D:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -21,13 +21,13 @@
       "toolchain": "toolchain",
       "abi": "x86",
       "artifactName": "opencv_jni_shared",
-      "output": "G:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86\\libopencv_jni_shared.a"
+      "output": "D:\\GitHub\\opencv_samples\\sdk\\.cxx\\Debug\\1d6s276n\\x86\\libopencv_jni_shared.a"
     }
   },
   "toolchains": {
     "toolchain": {
-      "cCompilerExecutable": "F:\\Android\\sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
-      "cppCompilerExecutable": "F:\\Android\\sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+      "cCompilerExecutable": "D:\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "D:\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
     }
   },
   "cFileExtensions": [],

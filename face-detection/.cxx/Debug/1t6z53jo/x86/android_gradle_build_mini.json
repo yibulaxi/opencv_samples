@@ -1,28 +1,28 @@
 {
   "buildFiles": [
-    "G:\\GitHub\\opencv_samples\\face-detection\\jni\\CMakeLists.txt"
+    "D:\\GitHub\\opencv_samples\\face-detection\\jni\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "G:\\GitHub\\opencv_samples\\face-detection\\.cxx\\Debug\\1t6z53jo\\x86",
+      "D:\\GitHub\\opencv_samples\\face-detection\\.cxx\\Debug\\1t6z53jo\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "G:\\GitHub\\opencv_samples\\face-detection\\.cxx\\Debug\\1t6z53jo\\x86",
+    "D:\\GitHub\\opencv_samples\\face-detection\\.cxx\\Debug\\1t6z53jo\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
     "detection_based_tracker::@6890427a1f51a3e7e1df": {
       "artifactName": "detection_based_tracker",
       "abi": "x86",
-      "output": "G:\\GitHub\\opencv_samples\\face-detection\\build\\intermediates\\cxx\\Debug\\1t6z53jo\\obj\\x86\\libdetection_based_tracker.so",
+      "output": "D:\\GitHub\\opencv_samples\\face-detection\\build\\intermediates\\cxx\\Debug\\1t6z53jo\\obj\\x86\\libdetection_based_tracker.so",
       "runtimeFiles": [
-        "G:\\GitHub\\opencv_samples\\sdk\\native\\libs\\x86\\libopencv_java4.so"
+        "D:\\GitHub\\opencv_samples\\sdk\\native\\libs\\x86\\libopencv_java4.so"
       ]
     }
   }

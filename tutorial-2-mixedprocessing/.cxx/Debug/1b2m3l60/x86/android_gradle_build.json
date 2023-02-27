@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "G:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\jni\\CMakeLists.txt"
+    "D:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\jni\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "G:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\.cxx\\Debug\\1b2m3l60\\x86",
+      "D:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\.cxx\\Debug\\1b2m3l60\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "F:\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "D:\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "G:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\.cxx\\Debug\\1b2m3l60\\x86",
+    "D:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\.cxx\\Debug\\1b2m3l60\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -21,16 +21,16 @@
       "toolchain": "toolchain",
       "abi": "x86",
       "artifactName": "mixed_sample",
-      "output": "G:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\build\\intermediates\\cxx\\Debug\\1b2m3l60\\obj\\x86\\libmixed_sample.so",
+      "output": "D:\\GitHub\\opencv_samples\\tutorial-2-mixedprocessing\\build\\intermediates\\cxx\\Debug\\1b2m3l60\\obj\\x86\\libmixed_sample.so",
       "runtimeFiles": [
-        "G:\\GitHub\\opencv_samples\\sdk\\native\\libs\\x86\\libopencv_java4.so"
+        "D:\\GitHub\\opencv_samples\\sdk\\native\\libs\\x86\\libopencv_java4.so"
       ]
     }
   },
   "toolchains": {
     "toolchain": {
-      "cCompilerExecutable": "F:\\Android\\sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
-      "cppCompilerExecutable": "F:\\Android\\sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+      "cCompilerExecutable": "D:\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "D:\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
     }
   },
   "cFileExtensions": [],

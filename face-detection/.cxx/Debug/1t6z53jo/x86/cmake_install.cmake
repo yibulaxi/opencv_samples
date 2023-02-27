@@ -1,4 +1,4 @@
-# Install script for directory: G:/GitHub/opencv_samples/face-detection/jni
+# Install script for directory: D:/GitHub/opencv_samples/face-detection/jni
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "F:/Android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
+  set(CMAKE_OBJDUMP "D:/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "G:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

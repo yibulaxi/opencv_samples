@@ -138,16 +138,16 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
     @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        rgb = inputFrame.rgba();        // 旋转输入帧
-        if (isFrontCamera) {
-            Core.rotate(rgb, rgb, Core.ROTATE_90_COUNTERCLOCKWISE);
-            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
-            Core.flip(rgb, rgb, 1);
-            Core.flip(gray, gray, 1);
-        } else {
-            Core.rotate(rgb, rgb, Core.ROTATE_90_CLOCKWISE);
-            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
-        }
+//        rgb = inputFrame.rgba();        // 旋转输入帧
+//        if (isFrontCamera) {
+//            Core.rotate(rgb, rgb, Core.ROTATE_90_COUNTERCLOCKWISE);
+//            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
+//            Core.flip(rgb, rgb, 1);
+//            Core.flip(gray, gray, 1);
+//        } else {
+//            Core.rotate(rgb, rgb, Core.ROTATE_90_CLOCKWISE);
+//            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
+//        }
 
         final int viewMode = mViewMode;
         switch (viewMode) {

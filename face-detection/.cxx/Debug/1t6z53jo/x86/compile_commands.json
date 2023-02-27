@@ -1,7 +1,7 @@
 [
 {
-  "directory": "G:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86",
-  "command": "F:\\Android\\sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android21 --sysroot=F:/Android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Ddetection_based_tracker_EXPORTS -IG:/GitHub/opencv_samples/face-detection/jni -isystem G:/GitHub/opencv_samples/sdk/native/jni/include -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -g  -fno-limit-debug-info -fPIC -o CMakeFiles\\detection_based_tracker.dir\\DetectionBasedTracker_jni.cpp.o -c G:\\GitHub\\opencv_samples\\face-detection\\jni\\DetectionBasedTracker_jni.cpp",
-  "file": "G:\\GitHub\\opencv_samples\\face-detection\\jni\\DetectionBasedTracker_jni.cpp"
+  "directory": "D:/GitHub/opencv_samples/face-detection/.cxx/Debug/1t6z53jo/x86",
+  "command": "D:\\Android\\Sdk\\ndk\\23.1.7779620\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android21 --sysroot=D:/Android/Sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Ddetection_based_tracker_EXPORTS -ID:/GitHub/opencv_samples/face-detection/jni -isystem D:/GitHub/opencv_samples/sdk/native/jni/include -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -g  -fno-limit-debug-info -fPIC -o CMakeFiles\\detection_based_tracker.dir\\DetectionBasedTracker_jni.cpp.o -c D:\\GitHub\\opencv_samples\\face-detection\\jni\\DetectionBasedTracker_jni.cpp",
+  "file": "D:\\GitHub\\opencv_samples\\face-detection\\jni\\DetectionBasedTracker_jni.cpp"
 }
 ]
