@@ -1,14 +1,6 @@
 package org.opencv.samples.puzzle15;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraActivity;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener;
-import org.opencv.android.JavaCameraView;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,39 +9,41 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraActivity;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener;
+import org.opencv.android.JavaCameraView;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+
 import java.util.Collections;
 import java.util.List;
 
 public class Puzzle15Activity extends CameraActivity implements CvCameraViewListener, View.OnTouchListener {
-
-    private static final String  TAG = "Puzzle15::Activity";
+    private static final String TAG = "Puzzle15::Activity";
 
     private CameraBridgeViewBase mOpenCvCameraView;
-    private Puzzle15Processor    mPuzzle15;
-    private MenuItem             mItemHideNumbers;
-    private MenuItem             mItemStartNewGame;
+    private Puzzle15Processor mPuzzle15;
+    private MenuItem mItemHideNumbers;
+    private MenuItem mItemStartNewGame;
 
 
-    private int                  mGameWidth;
-    private int                  mGameHeight;
+    private int mGameWidth;
+    private int mGameHeight;
 
-    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
-
+    private final BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
-                    Log.i(TAG, "OpenCV loaded successfully");
+            if (status == LoaderCallbackInterface.SUCCESS) {
+                Log.i(TAG, "OpenCV loaded successfully");
 
-                    /* Now enable camera view to start receiving frames */
-                    mOpenCvCameraView.setOnTouchListener(Puzzle15Activity.this);
-                    mOpenCvCameraView.enableView();
-                } break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                } break;
+                /* Now enable camera view to start receiving frames */
+                mOpenCvCameraView.setOnTouchListener(Puzzle15Activity.this);
+                mOpenCvCameraView.enableView();
+            } else {
+                super.onManagerConnected(status);
             }
         }
     };
@@ -69,16 +63,16 @@ public class Puzzle15Activity extends CameraActivity implements CvCameraViewList
     }
 
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
-        if (mOpenCvCameraView != null)
+
+        if (mOpenCvCameraView != null) {
             mOpenCvCameraView.disableView();
+        }
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         if (!OpenCVLoader.initDebug()) {
             Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
@@ -96,8 +90,10 @@ public class Puzzle15Activity extends CameraActivity implements CvCameraViewList
 
     public void onDestroy() {
         super.onDestroy();
-        if (mOpenCvCameraView != null)
+
+        if (mOpenCvCameraView != null) {
             mOpenCvCameraView.disableView();
+        }
     }
 
     @Override
@@ -130,16 +126,17 @@ public class Puzzle15Activity extends CameraActivity implements CvCameraViewList
     public void onCameraViewStopped() {
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouch(View view, MotionEvent event) {
         int xpos, ypos;
 
         xpos = (view.getWidth() - mGameWidth) / 2;
-        xpos = (int)event.getX() - xpos;
+        xpos = (int) event.getX() - xpos;
 
         ypos = (view.getHeight() - mGameHeight) / 2;
-        ypos = (int)event.getY() - ypos;
+        ypos = (int) event.getY() - ypos;
 
-        if (xpos >=0 && xpos <= mGameWidth && ypos >=0  && ypos <= mGameHeight) {
+        if (xpos >= 0 && xpos <= mGameWidth && ypos >= 0 && ypos <= mGameHeight) {
             /* click is inside the picture. Deliver this event to processor */
             mPuzzle15.deliverTouchEvent(xpos, ypos);
         }

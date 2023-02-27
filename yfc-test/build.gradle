@@ -82,6 +82,4 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
     kapt "me.laoyuyu.aria:compiler:3.8.16"
     kapt "com.alibaba:arouter-compiler:1.5.2"
-
-
 }

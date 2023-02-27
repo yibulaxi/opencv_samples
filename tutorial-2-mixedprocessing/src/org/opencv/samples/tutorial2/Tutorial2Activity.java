@@ -1,62 +1,58 @@
 package org.opencv.samples.tutorial2;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraActivity;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.imgproc.Imgproc;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraActivity;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import java.util.Collections;
 import java.util.List;
 
 public class Tutorial2Activity extends CameraActivity implements CvCameraViewListener2 {
-    private static final String    TAG = "OCVSample::Activity";
+    private static final String TAG = "OCVSample::Activity";
 
-    private static final int       VIEW_MODE_RGBA     = 0;
-    private static final int       VIEW_MODE_GRAY     = 1;
-    private static final int       VIEW_MODE_CANNY    = 2;
-    private static final int       VIEW_MODE_FEATURES = 5;
+    private static final int VIEW_MODE_RGBA = 0;
+    private static final int VIEW_MODE_GRAY = 1;
+    private static final int VIEW_MODE_CANNY = 2;
+    private static final int VIEW_MODE_FEATURES = 5;
 
-    private int                    mViewMode;
-    private Mat                    mRgba;
-    private Mat                    mIntermediateMat;
-    private Mat                    mGray;
+    private int mViewMode;
+    private Mat mRgba;
+    private Mat mIntermediateMat;
+    private Mat mGray;
 
-    private MenuItem               mItemPreviewRGBA;
-    private MenuItem               mItemPreviewGray;
-    private MenuItem               mItemPreviewCanny;
-    private MenuItem               mItemPreviewFeatures;
+    private MenuItem mItemPreviewRGBA;
+    private MenuItem mItemPreviewGray;
+    private MenuItem mItemPreviewCanny;
+    private MenuItem mItemPreviewFeatures;
 
-    private CameraBridgeViewBase   mOpenCvCameraView;
+    private CameraBridgeViewBase mOpenCvCameraView;
 
-    private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
+    private final BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
-                    Log.i(TAG, "OpenCV loaded successfully");
+            if (status == LoaderCallbackInterface.SUCCESS) {
+                Log.i(TAG, "OpenCV loaded successfully");
 
-                    // Load native library after(!) OpenCV initialization
-                    System.loadLibrary("mixed_sample");
+                // Load native library after(!) OpenCV initialization
+                System.loadLibrary("mixed_sample");
 
-                    mOpenCvCameraView.enableView();
-                } break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                } break;
+                mOpenCvCameraView.enableView();
+            } else {
+                super.onManagerConnected(status);
             }
         }
     };
@@ -65,7 +61,9 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "called onCreate");
@@ -90,17 +88,18 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     }
 
     @Override
-    public void onPause()
-    {
-        super.onPause();
-        if (mOpenCvCameraView != null)
+    public void onPause() {
+        if (mOpenCvCameraView != null) {
             mOpenCvCameraView.disableView();
+        }
+
+        super.onPause();
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
+
         if (!OpenCVLoader.initDebug()) {
             Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback);
@@ -116,46 +115,62 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     }
 
     public void onDestroy() {
-        super.onDestroy();
-        if (mOpenCvCameraView != null)
+        if (mOpenCvCameraView != null) {
             mOpenCvCameraView.disableView();
+        }
+
+        super.onDestroy();
     }
 
+    @Override
     public void onCameraViewStarted(int width, int height) {
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mIntermediateMat = new Mat(height, width, CvType.CV_8UC4);
         mGray = new Mat(height, width, CvType.CV_8UC1);
     }
 
+    @Override
     public void onCameraViewStopped() {
         mRgba.release();
         mGray.release();
         mIntermediateMat.release();
     }
 
+    @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
+        rgb = inputFrame.rgba();        // 旋转输入帧
+        if (isFrontCamera) {
+            Core.rotate(rgb, rgb, Core.ROTATE_90_COUNTERCLOCKWISE);
+            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
+            Core.flip(rgb, rgb, 1);
+            Core.flip(gray, gray, 1);
+        } else {
+            Core.rotate(rgb, rgb, Core.ROTATE_90_CLOCKWISE);
+            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
+        }
+
         final int viewMode = mViewMode;
         switch (viewMode) {
-        case VIEW_MODE_GRAY:
-            // input frame has gray scale format
-            Imgproc.cvtColor(inputFrame.gray(), mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
-            break;
-        case VIEW_MODE_RGBA:
-            // input frame has RBGA format
-            mRgba = inputFrame.rgba();
-            break;
-        case VIEW_MODE_CANNY:
-            // input frame has gray scale format
-            mRgba = inputFrame.rgba();
-            Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
-            Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
-            break;
-        case VIEW_MODE_FEATURES:
-            // input frame has RGBA format
-            mRgba = inputFrame.rgba();
-            mGray = inputFrame.gray();
-            FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
-            break;
+            case VIEW_MODE_GRAY:
+                // input frame has gray scale format
+                Imgproc.cvtColor(inputFrame.gray(), mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
+                break;
+            case VIEW_MODE_RGBA:
+                // input frame has RBGA format
+                mRgba = inputFrame.rgba();
+                break;
+            case VIEW_MODE_CANNY:
+                // input frame has gray scale format
+                mRgba = inputFrame.rgba();
+                Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
+                Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
+                break;
+            case VIEW_MODE_FEATURES:
+                // input frame has RGBA format
+                mRgba = inputFrame.rgba();
+                mGray = inputFrame.gray();
+                FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+                break;
         }
 
         return mRgba;
