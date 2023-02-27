@@ -15,7 +15,12 @@ import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
+import org.opencv.core.KeyPoint;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfKeyPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.features2d.FastFeatureDetector;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.Collections;
@@ -37,7 +42,10 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private MenuItem mItemPreviewRGBA;
     private MenuItem mItemPreviewGray;
     private MenuItem mItemPreviewCanny;
-    private MenuItem mItemPreviewFeatures;
+    private MenuItem mItemPreviewFeaturesNative;
+    private MenuItem mItemPreviewFeaturesJava;
+
+    private boolean isNativeFeatures = true;
 
     private JavaCameraView javaCameraView;
 
@@ -82,7 +90,8 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         mItemPreviewRGBA = menu.add("Preview RGBA");
         mItemPreviewGray = menu.add("Preview GRAY");
         mItemPreviewCanny = menu.add("Canny");
-        mItemPreviewFeatures = menu.add("Find features");
+        mItemPreviewFeaturesNative = menu.add("Find Features Native");
+        mItemPreviewFeaturesJava = menu.add("Find Features Java");
         return true;
     }
 
@@ -157,21 +166,21 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
                 // input frame has RGBA format
                 mRgba = inputFrame.rgba();
                 mGray = inputFrame.gray();
-                FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+
+                if (isNativeFeatures) {
+                    FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+                } else {
+                    FastFeatureDetector detector = FastFeatureDetector.create();
+                    MatOfKeyPoint matOfKeyPoint = new MatOfKeyPoint();
+                    detector.detect(mGray, matOfKeyPoint);
+
+                    List<KeyPoint> keyPoints = matOfKeyPoint.toList();
+                    for (KeyPoint kp : keyPoints) {
+                        Imgproc.circle(mRgba, new Point(kp.pt.x, kp.pt.y), 10, new Scalar(255, 0, 0, 255));
+                    }
+                }
                 break;
         }
-
-//        Mat gray = inputFrame.gray();
-//        boolean isFrontCamera = false;
-//        if (isFrontCamera) {
-//            Core.rotate(mRgba, mRgba, Core.ROTATE_90_COUNTERCLOCKWISE);
-//            Core.rotate(gray, gray, Core.ROTATE_90_COUNTERCLOCKWISE);
-//            Core.flip(mRgba, mRgba, 1);
-//            Core.flip(gray, gray, 1);
-//        } else {
-//            Core.rotate(mRgba, mRgba, Core.ROTATE_90_CLOCKWISE);
-//            Core.rotate(gray, gray, Core.ROTATE_90_CLOCKWISE);
-//        }
 
         return this.mRgba;
     }
@@ -185,8 +194,12 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
             mViewMode = VIEW_MODE_GRAY;
         } else if (item == mItemPreviewCanny) {
             mViewMode = VIEW_MODE_CANNY;
-        } else if (item == mItemPreviewFeatures) {
+        } else if (item == mItemPreviewFeaturesNative) {
             mViewMode = VIEW_MODE_FEATURES;
+            isNativeFeatures = true;
+        } else if (item == mItemPreviewFeaturesJava) {
+            mViewMode = VIEW_MODE_FEATURES;
+            isNativeFeatures = false;
         }
 
         return true;
