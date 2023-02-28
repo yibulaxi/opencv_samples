@@ -163,7 +163,7 @@ class TestHoughCirclesActivity : BaseActivity() {
             Luban.with(this)
                 .load(filePath)
                 .ignoreBy(1024)
-                .setTargetDir(File.createTempFile("temp", ".temp").parentFile?.absolutePath ?: "")
+                .setTargetDir(cacheDir.absolutePath)
                 .setCompressListener(object : OnNewCompressListener {
                     override fun onStart() {
                         "正在压缩图片".showLongToast()
