@@ -278,6 +278,8 @@ class TestHoughCirclesActivity : BaseActivity() {
             }
 
             override fun onSuccess(result: String?) {
+                if (isFinishing || isDestroyed) return
+
                 loadImage(result.toString())
             }
         })
