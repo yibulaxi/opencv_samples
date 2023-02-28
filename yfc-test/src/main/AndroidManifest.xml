@@ -62,7 +62,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.cool.testopencv.TestHActivity"
+            android:name="com.cool.testopencv.TestHoughCirclesActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
     </application>

@@ -2,7 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cool.testopencv.TestHActivity">
+    tools:context="com.cool.testopencv.TestHoughCirclesActivity"
+    tools:ignore="HardcodedText">
 
     <data />
 
@@ -10,25 +11,109 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="test"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_image"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/rsb1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择图片"
+            app:layout_constraintBottom_toTopOf="@+id/btn_select_crop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_select_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择图片并裁剪"
+            app:layout_constraintBottom_toTopOf="@+id/rsb1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重置条件"
+            app:layout_constraintBottom_toTopOf="@+id/rsb1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_select_crop" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/rsb1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/rsb2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rsb_gravity="center"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_max="100"
+            app:rsb_min="1"
+            app:rsb_mode="single" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/rsb2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/rsb3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rsb_gravity="center"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_max="100"
+            app:rsb_min="1"
+            app:rsb_mode="single" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/rsb3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/rsb4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rsb_gravity="center"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_max="100"
+            app:rsb_min="1"
+            app:rsb_mode="single" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/rsb4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/rsb5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rsb_gravity="center"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_max="100"
+            app:rsb_min="0"
+            app:rsb_mode="single" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/rsb5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rsb_gravity="center"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_max="100"
+            app:rsb_min="0"
+            app:rsb_mode="single" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

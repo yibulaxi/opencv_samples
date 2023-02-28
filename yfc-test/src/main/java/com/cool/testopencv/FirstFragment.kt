@@ -31,7 +31,10 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         binding.button1.setOnClickListener {
-            ActivityUtils.startActivity(TestHActivity::class.java)
+            ActivityUtils.startActivity(TestHoughCirclesActivity::class.java)
+        }
+        binding.button2.setOnClickListener {
+            ActivityUtils.startActivity(Tutorial2Activity::class.java)
         }
     }
 

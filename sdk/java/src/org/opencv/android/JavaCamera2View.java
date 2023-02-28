@@ -170,23 +170,20 @@ public class JavaCamera2View extends CameraBridgeViewBase {
             }
 
             mImageReader = ImageReader.newInstance(w, h, mPreviewFormat, 2);
-            mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
-                @Override
-                public void onImageAvailable(ImageReader reader) {
-                    Image image = reader.acquireLatestImage();
-                    if (image == null)
-                        return;
+            mImageReader.setOnImageAvailableListener(reader -> {
+                Image image = reader.acquireLatestImage();
+                if (image == null)
+                    return;
 
-                    // sanity checks - 3 planes
-                    Image.Plane[] planes = image.getPlanes();
-                    assert (planes.length == 3);
-                    assert (image.getFormat() == mPreviewFormat);
+                // sanity checks - 3 planes
+                Image.Plane[] planes = image.getPlanes();
+                assert (planes.length == 3);
+                assert (image.getFormat() == mPreviewFormat);
 
-                    JavaCamera2Frame tempFrame = new JavaCamera2Frame(image);
-                    deliverAndDrawFrame(tempFrame);
-                    tempFrame.release();
-                    image.close();
-                }
+                JavaCamera2Frame tempFrame = new JavaCamera2Frame(image);
+                deliverAndDrawFrame(tempFrame);
+                tempFrame.release();
+                image.close();
             }, mBackgroundHandler);
             Surface surface = mImageReader.getSurface();
 

@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import com.cool.testopencv.databinding.ActivityTutorial2Binding
+import com.cool.yfc.ext.logE
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
@@ -43,7 +44,7 @@ class Tutorial2Activity : CameraActivity() {
     private val mLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
             if (status == SUCCESS) {
-                Log.i(TAG, "OpenCV loaded successfully")
+                logE("OpenCV loaded successfully")
 
                 // Load native library after(!) OpenCV initialization
                 System.loadLibrary("mixed_sample")
@@ -108,11 +109,12 @@ class Tutorial2Activity : CameraActivity() {
 
     public override fun onResume() {
         super.onResume()
+
         if (!OpenCVLoader.initDebug()) {
-            Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization")
+            logE("Internal OpenCV library not found. Using OpenCV Manager for initialization")
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback)
         } else {
-            Log.d(TAG, "OpenCV library found inside package. Using it!")
+            logE("OpenCV library found inside package. Using it!")
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
         }
     }
