@@ -1,7 +1,9 @@
 package com.cool.testopencv
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.ThreadUtils
 import com.blankj.utilcode.util.ThreadUtils.SimpleTask
 import com.bumptech.glide.Glide
@@ -31,7 +33,16 @@ import java.io.File
 
 class TestHoughCirclesActivity : BaseActivity() {
     private lateinit var binding: ActivityTestHBinding
+
     private var filePath: String? = null
+    private var w: Int = 0
+    private var h: Int = 0
+
+    private var minDist: Double = 0.0
+    private var param1: Double = 0.0
+    private var param2: Double = 0.0
+    private var minRadius: Int = 0
+    private var maxRadius: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +61,7 @@ class TestHoughCirclesActivity : BaseActivity() {
                         if (!result.isNullOrEmpty()) {
                             filePath = getMediaPath(result.first())
 
-                            handleFilePath {
-                                loadImage(filePath)
-                                changeVisibility()
-
-                                test(minDist, param1, param2, minRadius, maxRadius)
-                            }
+                            checkFile()
                         }
                     }
 
@@ -81,12 +87,7 @@ class TestHoughCirclesActivity : BaseActivity() {
                         if (!result.isNullOrEmpty()) {
                             filePath = getMediaPath(result.first())
 
-                            handleFilePath {
-                                loadImage(filePath)
-                                changeVisibility()
-
-                                test(minDist, param1, param2, minRadius, maxRadius)
-                            }
+                            checkFile()
                         }
                     }
 
@@ -99,20 +100,8 @@ class TestHoughCirclesActivity : BaseActivity() {
             )
         }
 
-        binding.ivImage.setOnClickListener {
-            changeVisibility()
-        }
-
-        binding.btnReset.setOnClickListener {
-            minDist = 8.0
-            param1 = 90.0
-            param2 = 30.0
-            minRadius = 1
-            maxRadius = 25
-
-            setProgress()
-            test(minDist, param1, param2, minRadius, maxRadius)
-        }
+        binding.ivImage.setOnClickListener { changeVisibility() }
+        binding.btnReset.setOnClickListener { doCheckFile() }
 
         val listener = object : OnRangeChangedListener {
             override fun onRangeChanged(view: RangeSeekBar?, leftValue: Float, rightValue: Float, isFromUser: Boolean) {
@@ -147,8 +136,6 @@ class TestHoughCirclesActivity : BaseActivity() {
             }
         }
 
-        setProgress()
-
         binding.rsb1.setOnRangeChangedListener(listener)
         binding.rsb2.setOnRangeChangedListener(listener)
         binding.rsb3.setOnRangeChangedListener(listener)
@@ -156,6 +143,29 @@ class TestHoughCirclesActivity : BaseActivity() {
         binding.rsb5.setOnRangeChangedListener(listener)
 
         "点击空白处可隐藏按钮".showLongToast()
+    }
+
+    private fun checkFile() {
+        handleFilePath { doCheckFile() }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun doCheckFile() {
+        loadImage(filePath)
+        changeVisibility()
+
+        val size = ImageUtils.getSize(filePath)
+        if (size != null && size.size >= 2) {
+            w = size[0]
+            h = size[1]
+            val minR = w / 30 / 2
+            val maxR = minR * 2
+            val minD = maxR.toDouble()
+
+            binding.tvHint.text = "W=${w}px H=${h}px minDist=${minD} minRadius=${minR} maxRadius=${maxR}"
+
+            houghCircles(minD, 100.0, 25.0, minR, maxR)
+        }
     }
 
     private fun handleFilePath(listener: () -> Unit) {
@@ -191,6 +201,11 @@ class TestHoughCirclesActivity : BaseActivity() {
     }
 
     private fun setProgress() {
+        val maxR = (w / 2).toFloat()
+        binding.rsb1.setRange(0F, w.toFloat())
+        binding.rsb4.setRange(-1F, maxR)
+        binding.rsb5.setRange(-1F, maxR)
+
         binding.rsb1.setProgress(minDist.toFloat())
         binding.rsb2.setProgress(param1.toFloat())
         binding.rsb3.setProgress(param2.toFloat())
@@ -206,37 +221,43 @@ class TestHoughCirclesActivity : BaseActivity() {
         val value = view.rangeSeekBarState[0].value
         when (view) {
             binding.rsb1 -> {
-                test(value.toDouble(), param1, param2, minRadius, maxRadius)
+                houghCircles(value.toDouble(), param1, param2, minRadius, maxRadius)
             }
             binding.rsb2 -> {
-                test(minDist, value.toDouble(), param2, minRadius, maxRadius)
+                houghCircles(minDist, value.toDouble(), param2, minRadius, maxRadius)
             }
             binding.rsb3 -> {
-                test(minDist, param1, value.toDouble(), minRadius, maxRadius)
+                houghCircles(minDist, param1, value.toDouble(), minRadius, maxRadius)
             }
             binding.rsb4 -> {
-                test(minDist, param1, param2, value.toInt(), maxRadius)
+                var minDist = binding.rsb1.rangeSeekBarState[0].value
+                if (minDist < value) {
+                    minDist = value * 2
+                }
+
+                var maxRadius = binding.rsb5.rangeSeekBarState[0].value
+                if (maxRadius < value) {
+                    maxRadius = value * 3 / 2
+                }
+
+                houghCircles(minDist.toDouble(), param1, param2, value.toInt(), maxRadius.toInt())
             }
             binding.rsb5 -> {
-                test(minDist, param1, param2, minRadius, value.toInt())
+                houghCircles(minDist, param1, param2, minRadius, value.toInt())
             }
         }
     }
 
-    private var minDist: Double = 8.0
-    private var param1: Double = 100.0
-    private var param2: Double = 35.0
-    private var minRadius: Int = 3
-    private var maxRadius: Int = 24
+    private fun houghCircles(minDist: Double, param1: Double, param2: Double, minRadius: Int, maxRadius: Int) {
+        if (filePath.isNullOrEmpty()) return
 
-    private fun test(minDist: Double, param1: Double, param2: Double, minRadius: Int, maxRadius: Int) {
         this.minDist = minDist
         this.param1 = param1
         this.param2 = param2
         this.minRadius = minRadius
         this.maxRadius = maxRadius
 
-        if (filePath.isNullOrEmpty()) return
+        setProgress()
 
         ThreadUtils.executeByIo(object : SimpleTask<String>() {
             override fun doInBackground(): String {
