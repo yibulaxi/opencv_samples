@@ -36,6 +36,9 @@ class FirstFragment : Fragment() {
         binding.button2.setOnClickListener {
             ActivityUtils.startActivity(Tutorial2Activity::class.java)
         }
+        binding.button3.setOnClickListener {
+            ActivityUtils.startActivity(TestImageActivity::class.java)
+        }
     }
 
     override fun onDestroyView() {

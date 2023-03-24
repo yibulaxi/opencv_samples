@@ -85,7 +85,8 @@ gradle.afterProject { project ->
             || project.pluginManager.hasPlugin('com.android.library')
             || project.pluginManager.hasPlugin('com.android.test')
             || project.pluginManager.hasPlugin('com.android.feature')) {
-        if (true) {
+//        if (true) {
+        if (false) {
             gradle.println("Override build ABIs for the project ${project.name}")
             project.android {
                 splits {

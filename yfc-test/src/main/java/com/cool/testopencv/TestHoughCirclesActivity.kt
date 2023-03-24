@@ -22,9 +22,7 @@ import com.qw.soul.permission.bean.Permission
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
-import org.opencv.core.Mat
-import org.opencv.core.Point
-import org.opencv.core.Scalar
+import org.opencv.core.*
 import org.opencv.imgcodecs.Imgcodecs
 import org.opencv.imgproc.Imgproc
 import top.zibin.luban.Luban
@@ -146,7 +144,9 @@ class TestHoughCirclesActivity : BaseActivity() {
     }
 
     private fun checkFile() {
-        handleFilePath { doCheckFile() }
+        handleFilePath {
+            doCheckFile()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -201,16 +201,20 @@ class TestHoughCirclesActivity : BaseActivity() {
     }
 
     private fun setProgress() {
-        val maxR = (w / 2).toFloat()
-        binding.rsb1.setRange(0F, w.toFloat())
-        binding.rsb4.setRange(-1F, maxR)
-        binding.rsb5.setRange(-1F, maxR)
+        kotlin.runCatching {
+            val maxR = (w / 2).toFloat()
+            binding.rsb1.setRange(0F, w.toFloat())
+            binding.rsb4.setRange(-1F, maxR)
+            binding.rsb5.setRange(-1F, maxR)
 
-        binding.rsb1.setProgress(minDist.toFloat())
-        binding.rsb2.setProgress(param1.toFloat())
-        binding.rsb3.setProgress(param2.toFloat())
-        binding.rsb4.setProgress(minRadius.toFloat())
-        binding.rsb5.setProgress(maxRadius.toFloat())
+            binding.rsb1.setProgress(minDist.toFloat())
+            binding.rsb2.setProgress(param1.toFloat())
+            binding.rsb3.setProgress(param2.toFloat())
+            binding.rsb4.setProgress(minRadius.toFloat())
+            binding.rsb5.setProgress(maxRadius.toFloat())
+        }.onFailure {
+            logE(it)
+        }
     }
 
     private fun loadImage(filePath: String?) {
